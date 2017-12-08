@@ -1,0 +1,13 @@
+---
+
+- name: check for gnocchi resource file
+  stat:
+    path: "/etc/ceilometer/gnocchi_resources.yaml"
+  register: gnocchi_resource_file
+
+- name: Initialize Gnocchi database by creating ceilometer resources
+  command: "{{ ceilometer_bin }}/ceilometer-upgrade --skip-metering-database"
+  become: yes
+  become_user: "{{ ceilometer_system_user_name }}"
+  changed_when: false
+  when: gnocchi_resource_file.stat.exists
