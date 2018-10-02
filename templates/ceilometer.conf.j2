@@ -28,6 +28,8 @@ event_dispatchers = database
 
 {% if 'ceilometer_agent_central' in group_names %}
 polling_namespaces = central
+{% elif 'ceilometer_agent_compute' in group_names %}
+polling_namespaces = compute
 {% endif %}
 
 [oslo_messaging_rabbit]
