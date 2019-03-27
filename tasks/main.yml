@@ -47,20 +47,20 @@
   tags:
     - always
 
-- include_tasks: ceilometer_pre_install.yml
+- import_tasks: ceilometer_pre_install.yml
   tags:
     - ceilometer-install
 
-- include_tasks: ceilometer_install.yml
+- import_tasks: ceilometer_install.yml
   tags:
     - ceilometer-install
 
-- include_tasks: ceilometer_post_install.yml
+- import_tasks: ceilometer_post_install.yml
   tags:
     - ceilometer-config
 
 - name: Run the systemd service role
-  include_role:
+  import_role:
     name: systemd_service
   vars:
     systemd_user_name: "{{ ceilometer_system_user_name }}"
@@ -86,7 +86,7 @@
     - ceilometer-config
     - systemd-service
 
-- include_tasks: ceilometer_service_setup.yml
+- import_tasks: ceilometer_service_setup.yml
   when:
     - groups['ceilometer_central_container'] is defined and inventory_hostname == groups['ceilometer_central_container'][0]
   tags:
@@ -109,7 +109,7 @@
     - common-mq
     - ceilometer-config
 
-- include_tasks: ceilometer_db_setup.yml
+- import_tasks: ceilometer_db_setup.yml
   tags:
     - ceilometer-config
   run_once: true
