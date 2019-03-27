@@ -36,20 +36,6 @@
   retries: 5
   delay: 2
 
-- name: Install distro packages required in Developer Mode
-  package:
-    name: "{{ item }}"
-    state: "{{ ceilometer_package_state }}"
-    update_cache: "{{ (ansible_pkg_mgr in ['apt', 'zypper']) | ternary('yes', omit) }}"
-    cache_valid_time: "{{ (ansible_pkg_mgr == 'apt') | ternary(cache_timeout, omit) }}"
-  register: install_packages
-  until: install_packages is success
-  retries: 5
-  delay: 2
-  with_items: "{{ ceilometer_developer_mode_distro_packages }}"
-  when:
-    - ceilometer_developer_mode | bool
-
 - name: Install the python venv
   include_role:
     name: "python_venv_build"
@@ -66,4 +52,3 @@
         option: "venv_tag"
         value: "{{ ceilometer_venv_tag }}"
   when: ceilometer_install_method == 'source'
-

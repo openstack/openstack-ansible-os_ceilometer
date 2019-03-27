@@ -22,7 +22,11 @@ ceilometer_distro_packages:
   - python-libvirt
   - python3-libvirt
 
-ceilometer_devel_distro_packages: []
+ceilometer_devel_distro_packages:
+  - libvirt-dev
+  - libxml2-dev
+  - libxslt1-dev
+  - pkg-config
 
 ceilometer_service_distro_packages:
   - ceilometer-agent-central
@@ -31,13 +35,6 @@ ceilometer_service_distro_packages:
   - ceilometer-polling
   - python-systemd
   - python3-systemd
-
-# Packages required in developer mode, where packages are built locally
-ceilometer_developer_mode_distro_packages:
-  - libvirt-dev
-  - libxml2-dev
-  - libxslt1-dev
-  - pkg-config
 
 ceilometer_oslomsg_amqp1_distro_packages:
   - libsasl2-modules
