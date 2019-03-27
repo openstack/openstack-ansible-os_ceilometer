@@ -111,26 +111,6 @@ filter_project = {{ gnocchi_service_project_name }}
 max_retries = 80
 {% endif %}
 
-[keystone_authtoken]
-insecure = {{ keystone_service_internaluri_insecure | bool }}
-www_authenticate_uri = {{ keystone_service_internaluri }}
-auth_url = {{ keystone_service_adminuri }}
-auth_type = {{ ceilometer_keystone_auth_plugin }}
-project_domain_id = {{ ceilometer_service_project_domain_id }}
-user_domain_id = {{ ceilometer_service_user_domain_id }}
-project_name = {{ ceilometer_service_project_name }}
-username = {{ ceilometer_service_user_name }}
-password = {{ ceilometer_service_password }}
-region_name = {{ ceilometer_service_region }}
-interface = {{ ceilometer_service_interface }}
-
-memcached_servers = {{ memcached_servers }}
-
-token_cache_time = 300
-
-memcache_security_strategy = ENCRYPT
-memcache_secret_key = {{ memcached_encryption_key }}
-
 [publisher]
 telemetry_secret = {{ ceilometer_telemetry_secret }}
 

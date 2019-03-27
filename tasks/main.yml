@@ -88,7 +88,7 @@
 
 - import_tasks: ceilometer_service_setup.yml
   when:
-    - groups['ceilometer_central_container'] is defined and inventory_hostname == groups['ceilometer_central_container'][0]
+    - ceilometer_services['ceilometer-polling']['group'] | intersect(group_names)
   tags:
     - ceilometer-config
 

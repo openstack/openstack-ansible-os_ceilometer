@@ -20,6 +20,7 @@
 # system python instead.
 - name: Setup the service
   delegate_to: "{{ ceilometer_service_setup_host }}"
+  run_once: True
   vars:
     ansible_python_interpreter: "{{ ceilometer_service_setup_host_python_interpreter }}"
   block:
