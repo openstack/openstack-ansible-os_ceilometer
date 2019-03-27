@@ -15,7 +15,6 @@
 
 ceilometer_oslomsg_rpc_password: "{{ oslomsg_rpc_password }}"
 ceilometer_oslomsg_notify_password: "{{ oslomsg_notify_password }}"
-ceilometer_developer_mode: True
 ceilometer_service_password: secrete
 ceilometer_telemetry_secret: secrete
 ceilometer_container_db_password: secrete

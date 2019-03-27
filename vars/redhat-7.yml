@@ -20,6 +20,9 @@ ceilometer_distro_packages:
 ceilometer_devel_distro_packages:
   - systemd-devel
   - which
+  - libvirt-devel
+  - libxml2-devel
+  - libxslt-devel
 
 ceilometer_service_distro_packages:
   - openstack-ceilometer-central
@@ -28,12 +31,6 @@ ceilometer_service_distro_packages:
   - openstack-ceilometer-notification
   - openstack-ceilometer-polling
   - systemd-python
-
-# Packages required in developer mode, where packages are built locally
-ceilometer_developer_mode_distro_packages:
-  - libvirt-devel
-  - libxml2-devel
-  - libxslt-devel
 
 ceilometer_oslomsg_amqp1_distro_packages:
   - cyrus-sasl-lib
