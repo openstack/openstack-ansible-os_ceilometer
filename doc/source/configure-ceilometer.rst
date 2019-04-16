@@ -76,7 +76,7 @@ The `Ceilometer Admin Guide`_ details the
 options used in ``ceilometer.conf`` for HA deployment. The following is an
 example of ``ceilometer_ceilometer_conf_overrides``:
 
-.. _Ceilometer Admin Guide: http://docs.openstack.org/admin-guide/telemetry-data-collection.html
+.. _Ceilometer Admin Guide: https://docs.openstack.org/admin-guide/telemetry-data-collection.html
 
 .. code-block:: yaml
 
