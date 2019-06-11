@@ -53,3 +53,8 @@
     - groups['ceilometer_central_container'] is defined and inventory_hostname == groups['ceilometer_central_container'][0]
   tags:
     - ceilometer-config
+
+- include: ceilometer_db_setup.yml
+  tags:
+    - ceilometer-config
+  run_once: true
