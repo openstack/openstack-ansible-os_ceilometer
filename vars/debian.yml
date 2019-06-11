@@ -29,10 +29,7 @@ ceilometer_devel_distro_packages:
   - pkg-config
 
 ceilometer_service_distro_packages:
-  - ceilometer-agent-central
-  - ceilometer-agent-compute
-  - ceilometer-agent-notification
-  - ceilometer-polling
+  - python3-ceilometer
   - python-systemd
   - python3-systemd
 
@@ -44,4 +41,4 @@ ceilometer_packages_to_symlink:
   - python-libvirt
   - python3-libvirt
 
-ceilometer_lib_dir: "/usr/lib/python2.7/dist-packages"
+ceilometer_lib_dir: "/usr/lib/python3/dist-packages"
