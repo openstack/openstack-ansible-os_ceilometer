@@ -86,9 +86,19 @@
     - ceilometer-config
     - systemd-service
 
-- import_tasks: ceilometer_service_setup.yml
+- import_tasks: service_setup.yml
+  vars:
+    _service_adminuri_insecure: "{{ keystone_service_adminuri_insecure }}"
+    _service_in_ldap: "{{ ceilometer_service_in_ldap }}"
+    _service_setup_host: "{{ ceilometer_service_setup_host }}"
+    _service_setup_host_python_interpreter: "{{ ceilometer_service_setup_host_python_interpreter }}"
+    _service_project_name: "{{ ceilometer_service_project_name }}"
+    _service_users:
+      - name: "{{ ceilometer_service_user_name }}"
+        password: "{{ ceilometer_service_password }}"
+        role: "{{ ceilometer_role_name }}"
   when:
-    - ceilometer_services['ceilometer-polling']['group'] | intersect(group_names)
+    - inventory_hostname == (groups[(ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names))[0]] | intersect(ansible_play_hosts))[0]
   tags:
     - ceilometer-config
 
