@@ -30,6 +30,7 @@ ceilometer_devel_distro_packages:
 
 ceilometer_service_distro_packages:
   - python3-ceilometer
+  - "{{ (ceilometer_gnocchi_enabled | bool) | ternary('python3-gnocchiclient', '') }}"
   - python-systemd
   - python3-systemd
 

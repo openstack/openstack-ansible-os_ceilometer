@@ -25,4 +25,4 @@
   changed_when: false
   when:
     - gnocchi_resource_file.stat.exists
-    - ceilometer_gnocchi_enabled
+    - ceilometer_gnocchi_enabled | bool
