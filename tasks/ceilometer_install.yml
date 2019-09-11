@@ -40,6 +40,7 @@
   include_role:
     name: "python_venv_build"
   vars:
+    venv_python_executable: "{{ ceilometer_venv_python_executable }}"
     venv_build_constraints: "{{ ceilometer_git_constraints }}"
     venv_build_distro_package_list: "{{ ceilometer_devel_distro_packages }}"
     venv_install_destination_path: "{{ ceilometer_bin | dirname }}"
