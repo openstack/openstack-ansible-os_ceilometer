@@ -22,4 +22,6 @@ ceilometer_package_list: |-
 
 _ceilometer_bin: "/openstack/venvs/ceilometer-{{ ceilometer_venv_tag }}/bin"
 
-ceilometer_lib_dir: "{{ _ceilometer_bin | dirname }}/lib/python2.7/site-packages"
+#NOTE(jrosser) for compatibility with py2 and py3 we detect the location of
+#this dir during the source install and set a fact
+#ceilometer_lib_dir: "{{ _ceilometer_bin | dirname }}/lib/python2.7/site-packages"

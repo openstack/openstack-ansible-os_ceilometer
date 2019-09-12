@@ -16,7 +16,8 @@
 
 ceilometer_distro_packages:
   - git-core
-  - "{{ (ansible_distribution_version is version ('42', '>=')) | ternary('libvirt-python', 'python2-libvirt-python') }}"
+  - python2-libvirt-python
+  - python3-libvirt-python
 
 ceilometer_devel_distro_packages:
   - pkg-config
@@ -41,6 +42,7 @@ ceilometer_oslomsg_amqp1_distro_packages:
   - cyrus-sasl-digestmd5
 
 ceilometer_packages_to_symlink:
-  - "{{ (ansible_distribution_version is version ('42', '>=')) | ternary('libvirt-python', 'python2-libvirt-python') }}"
+  - python2-libvirt-python
+  - python3-libvirt-python
 
 ceilometer_lib_dir: "/usr/lib/python2.7/site-packages"

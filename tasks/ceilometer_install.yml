@@ -53,3 +53,17 @@
         option: "venv_tag"
         value: "{{ ceilometer_venv_tag }}"
   when: ceilometer_install_method == 'source'
+
+- name: Find the venv's python version
+  find:
+    paths: "{{ ceilometer_bin | dirname }}/lib/"
+    patterns: "python*"
+    file_type: directory
+    recurse: no
+  register: _ceilometer_python_venv_details
+  when: ceilometer_install_method == 'source'
+
+- name: Set python lib dir fact
+  set_fact:
+    ceilometer_lib_dir: "{{ _ceilometer_python_venv_details.files[0].path }}/site-packages"
+  when: ceilometer_install_method == 'source'
