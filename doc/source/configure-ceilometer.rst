@@ -26,7 +26,7 @@ Configure ceilometer by specifying the ``metering-compute_hosts`` and
 ``metering-infra_hosts`` directives in the
 ``/etc/openstack_deploy/conf.d/ceilometer.yml`` file:
 `ceilometer.yml.example
-<https://git.openstack.org/cgit/openstack/openstack-ansible/tree/etc/openstack_deploy/conf.d/ceilometer.yml.example>`_
+<https://opendev.org/openstack/openstack-ansible/tree/etc/openstack_deploy/conf.d/ceilometer.yml.example>`_
 
 The ``metering-compute_hosts`` host the ``ceilometer-agent-compute``
 service. It runs on each compute node and polls for resource
