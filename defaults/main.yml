@@ -32,11 +32,11 @@ ceilometer_install_method: "source"
 ceilometer_venv_python_executable: "{{ openstack_venv_python_executable | default('python2') }}"
 
 ## The git source/branch
-ceilometer_git_repo: https://git.openstack.org/openstack/ceilometer
+ceilometer_git_repo: https://opendev.org/openstack/ceilometer
 ceilometer_git_install_branch: master
 
 ## The packages to build from source
-ceilometer_upper_constraints_url: "{{ requirements_git_url | default('https://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=' ~ requirements_git_install_branch | default('master')) }}"
+ceilometer_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
 ceilometer_git_constraints:
   - "git+{{ ceilometer_git_repo }}@{{ ceilometer_git_install_branch }}#egg=ceilometer"
   - "--constraint {{ ceilometer_upper_constraints_url }}"
