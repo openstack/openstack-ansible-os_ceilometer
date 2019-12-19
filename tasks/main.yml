@@ -99,7 +99,7 @@
         password: "{{ ceilometer_service_password }}"
         role: "{{ ceilometer_role_name }}"
   when:
-    - (groups[(ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names))[0]] | intersect(ansible_play_hosts))[0] | length > 0
+    - ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | length > 0
     - inventory_hostname == (groups[(ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names))[0]] | intersect(ansible_play_hosts))[0]
   tags:
     - ceilometer-config
