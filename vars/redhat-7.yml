@@ -15,12 +15,11 @@
 
 ceilometer_distro_packages:
   - git
-  - libvirt-python
+  - "{{ (ansible_distribution_major_version|int <= 7) | ternary('libvirt-devel', 'python3-libvirt') }}"
 
 ceilometer_devel_distro_packages:
   - systemd-devel
   - which
-  - libvirt-devel
   - libxml2-devel
   - libxslt-devel
 
@@ -37,7 +36,14 @@ ceilometer_oslomsg_amqp1_distro_packages:
   - cyrus-sasl-plain
   - cyrus-sasl-md5
 
-ceilometer_packages_to_symlink:
+ceilometer_packages_to_symlink: |-
+  {% set packages = [] %}
+  {% if ansible_distribution_major_version|int > 7 %}
+  {%   set _ = packages.extend(['python3-libvirt']) %}
+  {% endif %}
+  {{ packages }}
+
+ceilometer_extra_pip_packages:
   - libvirt-python
 
 ceilometer_lib_dir: "/usr/lib/python2.7/site-packages"
