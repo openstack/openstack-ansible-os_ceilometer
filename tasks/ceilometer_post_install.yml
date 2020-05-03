@@ -45,7 +45,7 @@
   args:
     creates: "{{ item.source_f }}.original"
   with_items: "{{ ceilometer_core_files }}"
-  when: "{{ item.condition | default(True) }}"
+  when: item.condition | default(True)
 
 - name: Fetch override files
   fetch:
@@ -54,12 +54,14 @@
     flat: yes
   changed_when: false
   with_items: "{{ ceilometer_core_files }}"
-  when: "{{ item.condition | default(True) }}"
+  when:
+    - item.condition | default(True)
+    - item.tmp_f
   run_once: true
 
 - name: Copy common config
   config_template:
-    src: "{{ item.tmp_f }}"
+    src: "{{ (item.tmp_f) | ternary(item.tmp_f, omit) }}"
     dest: "{{ item.target_f | default(item.source_f) }}"
     owner: "{{ item.owner | default(ceilometer_system_user_name) }}"
     group: "{{ item.group | default(ceilometer_system_group_name) }}"
@@ -68,7 +70,7 @@
     config_type: "{{ item.config_type }}"
     content: "{{ item.content | default(omit) }}"
   with_items: "{{ ceilometer_core_files }}"
-  when: "{{ item.condition | default(True) }}"
+  when: item.condition | default(True)
   notify:
     - Restart ceilometer services
 
@@ -79,7 +81,7 @@
   changed_when: false
   delegate_to: localhost
   with_items: "{{ ceilometer_core_files }}"
-  when: "{{ item.condition | default(True) }}"
+  when: item.condition | default(True)
 
 # NOTE(cloudnull): This will ensure strong permissions on all rootwrap files.
 - name: Set rootwrap.d permissions
