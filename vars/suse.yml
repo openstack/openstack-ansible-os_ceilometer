@@ -44,5 +44,3 @@ ceilometer_oslomsg_amqp1_distro_packages:
 ceilometer_packages_to_symlink:
   - python2-libvirt-python
   - python3-libvirt-python
-
-ceilometer_lib_dir: "/usr/lib/python2.7/site-packages"

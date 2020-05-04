@@ -21,3 +21,5 @@ ceilometer_package_list: |-
   {{ packages }}
 
 _ceilometer_bin: "/usr/bin"
+
+_ceilometer_venv_python_executable: "{{ ((ansible_os_family | lower == 'redhat') and (ansible_distribution_major_version is version('7', '='))) | ternary('python2', 'python3') }}"

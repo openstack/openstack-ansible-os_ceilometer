@@ -13,6 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+- name: Find the venv's python version
+  command: "{{ ceilometer_bin }}/{{ ceilometer_venv_python_executable }} -c 'import ceilometer; print(ceilometer.__file__)'"
+  changed_when: false
+  register: _ceilometer_python_venv_details
+
+- name: Set python lib dir fact
+  set_fact:
+    ceilometer_lib_dir: "{{ _ceilometer_python_venv_details.stdout | dirname | dirname }}"
+
 - name: Copy ceilometer configuration files
   config_template:
     content: "{{ item.content | default(omit) }}"

@@ -29,7 +29,7 @@ ceilometer_pip_package_state: "latest"
 
 # Set installation method.
 ceilometer_install_method: "source"
-ceilometer_venv_python_executable: "{{ openstack_venv_python_executable | default('python2') }}"
+ceilometer_venv_python_executable: "{{ _ceilometer_venv_python_executable }}"
 
 ## The git source/branch
 ceilometer_git_repo: https://opendev.org/openstack/ceilometer

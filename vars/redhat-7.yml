@@ -45,5 +45,3 @@ ceilometer_packages_to_symlink: |-
 
 ceilometer_extra_pip_packages:
   - libvirt-python
-
-ceilometer_lib_dir: "/usr/lib/python2.7/site-packages"
