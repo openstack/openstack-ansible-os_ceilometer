@@ -261,12 +261,6 @@ ceilometer_required_secrets:
   - ceilometer_oslomsg_notify_password
   - ceilometer_service_password
 
-# This variable is used by the repo_build process to determine
-# which host group to check for members of before building the
-# pip packages required by this role. The value is picked up
-# by the py_pkgs lookup.
-ceilometer_role_project_group: ceilometer_all
-
 #: Tunable file-based overrides
 # The contents of these files, if they exist, are read from the
 # specified path on the deployment host, interpreted by the
