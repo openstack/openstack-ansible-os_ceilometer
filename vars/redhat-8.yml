@@ -13,28 +13,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## APT Cache options
-cache_timeout: 600
-
-# Common apt packages
 ceilometer_distro_packages:
   - git
   - python3-libvirt
 
 ceilometer_devel_distro_packages:
-  - libvirt-dev
-  - libxml2-dev
-  - libxslt1-dev
-  - pkg-config
+  - systemd-devel
+  - which
+  - libxml2-devel
+  - libxslt-devel
 
 ceilometer_service_distro_packages:
-  - python3-ceilometer
-  - python3-gnocchiclient
+  - openstack-ceilometer-central
+  - openstack-ceilometer-compute
+  - openstack-ceilometer-ipmi
+  - openstack-ceilometer-notification
+  - openstack-ceilometer-polling
   - python3-systemd
 
 ceilometer_oslomsg_amqp1_distro_packages:
-  - libsasl2-modules
-  - sasl2-bin
+  - cyrus-sasl-lib
+  - cyrus-sasl-plain
+  - cyrus-sasl-md5
 
 ceilometer_packages_to_symlink:
   - python3-libvirt
