@@ -18,6 +18,8 @@
       - check-requirements
       - openstack-ansible-linters
       - openstack-ansible-deploy-aio_metal-jobs
-      - openstack-ansible-deploy-aio_distro_metal-jobs
+      # NOTE(noonedeadpunk): Disabled until distro packages will contain patches
+      # https://review.opendev.org/746865 and https://review.opendev.org/746491
+      #- openstack-ansible-deploy-aio_distro_metal-jobs
       - publish-openstack-docs-pti
       - release-notes-jobs-python3
