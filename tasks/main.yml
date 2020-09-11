@@ -99,13 +99,11 @@
         password: "{{ ceilometer_service_password }}"
         role: "{{ ceilometer_role_name }}"
   when:
-    - ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | length > 0
-    - inventory_hostname == (groups[(ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names))[0]] | intersect(ansible_play_hosts))[0]
+    - _ceilometer_is_first_play_host
   tags:
     - ceilometer-config
 
 - import_tasks: mq_setup.yml
-  run_once: yes
   vars:
     _oslomsg_rpc_setup_host: "{{ ceilometer_oslomsg_rpc_setup_host }}"
     _oslomsg_rpc_userid: "{{ ceilometer_oslomsg_rpc_userid }}"
@@ -117,11 +115,14 @@
     _oslomsg_notify_password: "{{ ceilometer_oslomsg_notify_password }}"
     _oslomsg_notify_vhost: "{{ ceilometer_oslomsg_notify_vhost }}"
     _oslomsg_notify_transport: "{{ ceilometer_oslomsg_notify_transport }}"
+  when:
+    - _ceilometer_is_first_play_host
   tags:
     - common-mq
     - ceilometer-config
 
 - import_tasks: ceilometer_db_setup.yml
+  when:
+    - _ceilometer_is_first_play_host
   tags:
     - ceilometer-config
-  run_once: true

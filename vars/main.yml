@@ -21,6 +21,8 @@ ceilometer_loadbalancer_v2_meter_definitions_user_content: "{{ lookup('file', ce
 ceilometer_osprofiler_event_definitions_user_content: "{{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') }}"
 ceilometer_polling_user_content: "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') }}"
 
+_ceilometer_is_first_play_host: "{{ (ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | length > 0) and (inventory_hostname == groups[ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | first] | intersect(ansible_play_hosts) | first) }}"
+
 _ceilometer_rootwrap_conf_overrides:
   DEFAULT:
     filters_path: "/etc/ceilometer/rootwrap.d,/usr/share/ceilometer/rootwrap"
