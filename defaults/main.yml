@@ -274,6 +274,7 @@ ceilometer_gnocchi_resources_default_file_path: "/etc/openstack_deploy/ceilomete
 ceilometer_loadbalancer_v2_meter_definitions_default_file_path: "/etc/openstack_deploy/ceilometer/loadbalancer_v2_meter_definitions.yaml"
 ceilometer_osprofiler_event_definitions_default_file_path: "/etc/openstack_deploy/ceilometer/osprofiler_event_definitions.yaml"
 ceilometer_polling_default_file_path: "/etc/openstack_deploy/ceilometer/polling.yaml"
+ceilometer_pipeline_default_file_path: "/etc/openstack_deploy/ceilometer/pipeline.yaml"
 
 ## Tunable var-based overrides
 # The contents of these are templated over the default files.
