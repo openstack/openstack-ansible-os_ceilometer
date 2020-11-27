@@ -38,11 +38,6 @@
       dest: "/etc/ceilometer/ceilometer.conf"
       config_overrides: "{{ ceilometer_ceilometer_conf_overrides }}"
       config_type: "ini"
-    - src: "pipeline.yaml.j2"
-      dest: "/etc/ceilometer/pipeline.yaml"
-      config_overrides: "{{ ceilometer_pipeline_yaml_overrides }}"
-      config_type: "yaml"
-      list_extend: false
   notify:
     - Restart ceilometer services
 
@@ -91,6 +86,13 @@
   delegate_to: localhost
   with_items: "{{ ceilometer_core_files }}"
   when: item.condition | default(True)
+
+# NOTE(noonedeadpunk): We need to cleanup previously placed pipeline.yml since it will have
+# precedence over libs where we place it now. We should drop it in W
+- name: Cleanup pipeline.yml
+  file:
+    path: /etc/ceilometer/pipeline.yaml
+    state: absent
 
 # NOTE(cloudnull): This will ensure strong permissions on all rootwrap files.
 - name: Set rootwrap.d permissions
