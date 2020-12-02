@@ -138,6 +138,15 @@ nova_oslomsg_notify_userid: "{{ nova_oslomsg_rpc_userid | default('nova') }}"
 nova_oslomsg_notify_password: "{{ nova_ceilometer_enabled | ternary(nova_oslomsg_rpc_password, '') }}"
 nova_oslomsg_notify_vhost: "{{ nova_oslomsg_rpc_vhost | default('/nova') }}"
 
+# Octavia notifications
+octavia_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
+octavia_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
+octavia_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
+octavia_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
+octavia_oslomsg_notify_userid: "{{ octavia_oslomsg_rpc_userid | default('octavia') }}"
+octavia_oslomsg_notify_password: "{{ octavia_ceilometer_enabled | ternary(octavia_oslomsg_rpc_password, '') }}"
+octavia_oslomsg_notify_vhost: "{{ octavia_oslomsg_rpc_vhost | default('/octavia') }}"
+
 # Sahara notifications
 sahara_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
 sahara_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
@@ -194,6 +203,7 @@ heat_ceilometer_enabled: "{{ (groups['heat_all'] is defined) and (groups['heat_a
 keystone_ceilometer_enabled: "{{ (groups['keystone_all'] is defined) and (groups['keystone_all'] | length > 0) }}"
 neutron_ceilometer_enabled: "{{ (groups['neutron_all'] is defined) and (groups['neutron_all'] | length > 0) }}"
 nova_ceilometer_enabled: "{{ (groups['nova_all'] is defined) and (groups['nova_all'] | length > 0) }}"
+octavia_ceilometer_enabled: "{{ (groups['octavia_all'] is defined) and (groups['octavia_all'] | length > 0) }}"
 sahara_ceilometer_enabled: "{{ (groups['sahara_all'] is defined) and (groups['sahara_all'] | length > 0) }}"
 swift_ceilometer_enabled: "{{ (groups['swift_all'] is defined) and (groups['swift_all'] | length > 0) }}"
 trove_ceilometer_enabled: "{{ (groups['trove_all'] is defined) and (groups['trove_all'] | length > 0) }}"
