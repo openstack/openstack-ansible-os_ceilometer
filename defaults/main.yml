@@ -22,10 +22,9 @@ debug: False
 ceilometer_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
 ceilometer_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((ceilometer_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_python['executable'])) }}"
 
-# Set the package install state for distribution and pip packages
+# Set the package install state for distribution packages
 # Options are 'present' and 'latest'
-ceilometer_package_state: "latest"
-ceilometer_pip_package_state: "latest"
+ceilometer_package_state: "{{ package_state | default('latest') }}"
 
 # Set installation method.
 ceilometer_install_method: "source"
@@ -172,14 +171,14 @@ ceilometer_oslomsg_amqp1_enabled: "{{ ceilometer_oslomsg_rpc_transport == 'amqp'
 ceilometer_role_name: admin
 
 ## Service Type and Data
-ceilometer_service_region: RegionOne
+ceilometer_service_region: "{{ service_region | default('RegionOne') }}"
 ceilometer_service_user_name: ceilometer
 ceilometer_service_project_name: service
 ceilometer_service_project_domain_id: default
 ceilometer_service_user_domain_id: default
 ceilometer_service_interface: internalURL
 
-ceilometer_service_in_ldap: false
+ceilometer_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}"
 
 ## Ceilometer config
 # Cap the maximum number of threads / workers when a user value is unspecified
@@ -200,8 +199,8 @@ trove_ceilometer_enabled: "{{ (groups['trove_all'] is defined) and (groups['trov
 
 # Enable/Disable Telemetry partner services in Ceilometer
 # Defaults to True if the service is deployed.
-ceilometer_aodh_enabled: false
-ceilometer_gnocchi_enabled: false
+ceilometer_aodh_enabled: "{{ groups['aodh_all'] is defined and groups['aodh_all'] | length > 0 }}"
+ceilometer_gnocchi_enabled: "{{ groups['gnocchi_all'] is defined and groups['gnocchi_all'] | length > 0 }}"
 
 # TODO (andymccr): Remove in Queen release (along with config template overrides)
 # Sampling interval for ceilometer-polling services
