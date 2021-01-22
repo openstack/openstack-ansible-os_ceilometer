@@ -22,4 +22,4 @@
       # https://review.opendev.org/746865 and https://review.opendev.org/746491
       #- openstack-ansible-deploy-aio_distro_metal-jobs
       - publish-openstack-docs-pti
-      - release-notes-jobs-python3
+      - build-release-notes-jobs-python3
