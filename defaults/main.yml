@@ -37,7 +37,6 @@ ceilometer_git_install_branch: master
 ## The packages to build from source
 ceilometer_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
 ceilometer_git_constraints:
-  - "git+{{ ceilometer_git_repo }}@{{ ceilometer_git_install_branch }}#egg=ceilometer"
   - "--constraint {{ ceilometer_upper_constraints_url }}"
 
 ceilometer_pip_install_args: "{{ pip_install_options | default('') }}"
@@ -226,7 +225,7 @@ ceilometer_keystone_auth_type: password
 
 # Common pip packages
 ceilometer_pip_packages:
-  - ceilometer
+  - "git+{{ ceilometer_git_repo }}@{{ ceilometer_git_install_branch }}#egg=ceilometer"
   - ceilometermiddleware
   - cryptography
   - gnocchiclient
