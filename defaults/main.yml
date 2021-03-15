@@ -20,7 +20,7 @@ debug: False
 # for the service setup. The host must already have
 # clouds.yaml properly configured.
 ceilometer_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
-ceilometer_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((ceilometer_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_python['executable'])) }}"
+ceilometer_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((ceilometer_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
 
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
@@ -192,7 +192,7 @@ ceilometer_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}
 ## Ceilometer config
 # Cap the maximum number of threads / workers when a user value is unspecified
 ceilometer_notification_workers_max: 16
-ceilometer_notification_workers: "{{ [[ansible_processor_vcpus|default(2) // 2, 1] | max, ceilometer_notification_workers_max] | min }}"
+ceilometer_notification_workers: "{{ [[ansible_facts['processor_vcpus']|default(2) // 2, 1] | max, ceilometer_notification_workers_max] | min }}"
 
 # Enable/Disable Ceilometer per service
 cinder_ceilometer_enabled: "{{ (groups['cinder_all'] is defined) and (groups['cinder_all'] | length > 0) }}"

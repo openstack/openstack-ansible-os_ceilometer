@@ -18,7 +18,7 @@
     name: "{{ item.0.service_name }}"
     enabled: yes
     state: "stopped"
-    daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
+    daemon_reload: yes
   with_subelements:
     - "{{ ceilometer_services }}"
     - group
@@ -36,7 +36,7 @@
     name: "{{ item.0.service_name }}"
     enabled: yes
     state: "started"
-    daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
+    daemon_reload: yes
   with_subelements:
     - "{{ ceilometer_services }}"
     - group
