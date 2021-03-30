@@ -52,7 +52,7 @@
     name: "python_venv_build"
   vars:
     venv_python_executable: "{{ ceilometer_venv_python_executable }}"
-    venv_build_constraints: "{{ _u_c_contents.content.split('\n') | reject('match', '[ceilometer=*]') | list }}"
+    venv_build_constraints: "{{ _u_c_contents.content.split('\n') | reject('match', '^ceilometer=') | list }}"
     venv_build_distro_package_list: "{{ ceilometer_devel_distro_packages }}"
     venv_install_destination_path: "{{ ceilometer_bin | dirname }}"
     venv_install_distro_package_list: "{{ ceilometer_distro_packages }}"
