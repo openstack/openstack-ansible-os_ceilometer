@@ -35,9 +35,6 @@ polling_namespaces = compute
 [oslo_messaging_rabbit]
 ssl = {{ ceilometer_oslomsg_rpc_use_ssl }}
 
-[api]
-gnocchi_is_enabled = {{ ceilometer_gnocchi_enabled | bool }}
-
 {% if 'ceilometer_agent_notification' in group_names %}
 [notification]
 workers = {{ ceilometer_notification_workers }}
@@ -102,18 +99,6 @@ messaging_urls = {{ _oslomsg_url(swift_oslomsg_notify_transport, swift_oslomsg_n
 # Trove notifications
 messaging_urls = {{ _oslomsg_url(trove_oslomsg_notify_transport, trove_oslomsg_notify_userid, trove_oslomsg_notify_password, groups[trove_oslomsg_notify_host_group], trove_oslomsg_notify_port, trove_oslomsg_notify_vhost, query=(trove_oslomsg_notify_use_ssl | bool | ternary('ssl=1', ''))) }}
 {% endif %}
-{% endif %}
-
-{% if ceilometer_gnocchi_enabled | bool %}
-[dispatcher_gnocchi]
-archive_policy = low
-{% if gnocchi_storage_driver is defined and gnocchi_storage_driver == 'swift' %}
-filter_service_activity = True
-filter_project = {{ gnocchi_service_project_name }}
-{% endif %}
-
-[storage]
-max_retries = 80
 {% endif %}
 
 [publisher]
