@@ -62,6 +62,8 @@ ceilometer_oslomsg_rpc_port: "{{ oslomsg_rpc_port | default('5672') }}"
 ceilometer_oslomsg_rpc_use_ssl: "{{ oslomsg_rpc_use_ssl | default(False) }}"
 ceilometer_oslomsg_rpc_userid: ceilometer
 ceilometer_oslomsg_rpc_vhost: /ceilometer
+ceilometer_oslomsg_rpc_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+ceilometer_oslomsg_rpc_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Notify
 ceilometer_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -72,6 +74,8 @@ ceilometer_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }
 ceilometer_oslomsg_notify_userid: "{{ ceilometer_oslomsg_rpc_userid }}"
 ceilometer_oslomsg_notify_password: "{{ ceilometer_oslomsg_rpc_password }}"
 ceilometer_oslomsg_notify_vhost: "{{ ceilometer_oslomsg_rpc_vhost }}"
+ceilometer_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+ceilometer_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Cinder notifications
 cinder_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -81,6 +85,8 @@ cinder_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 cinder_oslomsg_notify_userid: "{{ cinder_oslomsg_rpc_userid | default('cinder') }}"
 cinder_oslomsg_notify_password: "{{ cinder_ceilometer_enabled | ternary(cinder_oslomsg_rpc_password, '') }}"
 cinder_oslomsg_notify_vhost: "{{ cinder_oslomsg_rpc_vhost | default('/cinder') }}"
+cinder_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+cinder_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Designate notifications
 designate_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -90,6 +96,8 @@ designate_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}
 designate_oslomsg_notify_userid: "{{ designate_oslomsg_rpc_userid | default('designate-rpc') }}"
 designate_oslomsg_notify_password: "{{ designate_ceilometer_enabled | ternary(designate_oslomsg_rpc_password, '') }}"
 designate_oslomsg_notify_vhost: "{{ designate_oslomsg_rpc_vhost | default('/designate') }}"
+designate_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+designate_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Glance notifications
 glance_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -99,6 +107,8 @@ glance_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 glance_oslomsg_notify_userid: "{{ glance_oslomsg_rpc_userid | default('glance') }}"
 glance_oslomsg_notify_password: "{{ glance_ceilometer_enabled | ternary(glance_oslomsg_rpc_password, '') }}"
 glance_oslomsg_notify_vhost: "{{ glance_oslomsg_rpc_vhost | default('/glance') }}"
+glance_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+glance_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Heat notifications
 heat_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -108,6 +118,8 @@ heat_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 heat_oslomsg_notify_userid: "{{ heat_oslomsg_rpc_userid | default('heat') }}"
 heat_oslomsg_notify_password: "{{ heat_ceilometer_enabled | ternary(heat_oslomsg_rpc_password, '') }}"
 heat_oslomsg_notify_vhost: "{{ heat_oslomsg_rpc_vhost | default('/heat') }}"
+heat_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+heat_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Keystone notifications
 keystone_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -117,6 +129,8 @@ keystone_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 keystone_oslomsg_notify_userid: "{{ keystone_oslomsg_rpc_userid | default('keystone') }}"
 keystone_oslomsg_notify_password: "{{ keystone_ceilometer_enabled | ternary(keystone_oslomsg_rpc_password, '') }}"
 keystone_oslomsg_notify_vhost: "{{ keystone_oslomsg_rpc_vhost | default('/keystone') }}"
+keystone_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+keystone_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Neutron notifications
 neutron_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -126,6 +140,8 @@ neutron_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 neutron_oslomsg_notify_userid: "{{ neutron_oslomsg_rpc_userid | default('neutron') }}"
 neutron_oslomsg_notify_password: "{{ neutron_ceilometer_enabled | ternary(neutron_oslomsg_rpc_password, '') }}"
 neutron_oslomsg_notify_vhost: "{{ neutron_oslomsg_rpc_vhost | default('/neutron') }}"
+neutron_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+neutron_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Nova notifications
 nova_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -135,6 +151,8 @@ nova_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 nova_oslomsg_notify_userid: "{{ nova_oslomsg_rpc_userid | default('nova') }}"
 nova_oslomsg_notify_password: "{{ nova_ceilometer_enabled | ternary(nova_oslomsg_rpc_password, '') }}"
 nova_oslomsg_notify_vhost: "{{ nova_oslomsg_rpc_vhost | default('/nova') }}"
+nova_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+nova_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Octavia notifications
 octavia_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -144,6 +162,8 @@ octavia_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 octavia_oslomsg_notify_userid: "{{ octavia_oslomsg_rpc_userid | default('octavia') }}"
 octavia_oslomsg_notify_password: "{{ octavia_ceilometer_enabled | ternary(octavia_oslomsg_rpc_password, '') }}"
 octavia_oslomsg_notify_vhost: "{{ octavia_oslomsg_rpc_vhost | default('/octavia') }}"
+octavia_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+octavia_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Sahara notifications
 sahara_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -153,6 +173,8 @@ sahara_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 sahara_oslomsg_notify_userid: "{{ sahara_oslomsg_rpc_userid | default('sahara') }}"
 sahara_oslomsg_notify_password: "{{ sahara_ceilometer_enabled | ternary(sahara_oslomsg_rpc_password, '') }}"
 sahara_oslomsg_notify_vhost: "{{ sahara_oslomsg_rpc_vhost | default('/sahara') }}"
+sahara_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+sahara_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Swift notifications
 swift_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -161,6 +183,8 @@ swift_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
 swift_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 swift_oslomsg_notify_userid: "swift"
 swift_oslomsg_notify_vhost: "/swift"
+swift_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+swift_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 # Trove notifications
 trove_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
@@ -170,6 +194,8 @@ trove_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 trove_oslomsg_notify_userid: "{{ trove_oslomsg_rpc_userid | default('trove') }}"
 trove_oslomsg_notify_password: "{{ trove_ceilometer_enabled | ternary(trove_oslomsg_rpc_password, '') }}"
 trove_oslomsg_notify_vhost: "{{ trove_oslomsg_rpc_vhost | default('/trove') }}"
+trove_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+trove_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
 ## (Qdrouterd) info
 # TODO(ansmith): Change structure when more backends will be supported
