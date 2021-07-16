@@ -20,7 +20,7 @@ auth_strategy = keystone
 aodh_is_enabled = {{ ceilometer_aodh_enabled | bool }}
 
 # RPC
-transport_url = {{ _oslomsg_url(ceilometer_oslomsg_rpc_transport, ceilometer_oslomsg_rpc_userid, ceilometer_oslomsg_rpc_password, groups[ceilometer_oslomsg_rpc_host_group], ceilometer_oslomsg_rpc_port, ceilometer_oslomsg_rpc_vhost, ceilometer_oslomsg_rpc_use_ssl, ceilometer_oslomsg_rpc_ssl_version, ceilometer_rpc_ssl_ca_file) }}
+transport_url = {{ _oslomsg_url(ceilometer_oslomsg_rpc_transport, ceilometer_oslomsg_rpc_userid, ceilometer_oslomsg_rpc_password, groups[ceilometer_oslomsg_rpc_host_group], ceilometer_oslomsg_rpc_port, ceilometer_oslomsg_rpc_vhost, ceilometer_oslomsg_rpc_use_ssl, ceilometer_oslomsg_rpc_ssl_version, ceilometer_oslomsg_rpc_ssl_ca_file) }}
 
 {% if ceilometer_gnocchi_enabled | bool %}
 event_dispatchers = gnocchi
