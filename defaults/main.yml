@@ -258,7 +258,6 @@ ceilometer_pip_packages:
   - osprofiler
   - PyMySQL
   - pymongo
-  - python-ceilometerclient
   - python-memcached
   - systemd-python
   - tooz[zake]
