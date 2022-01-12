@@ -86,7 +86,12 @@
     - ceilometer-config
     - systemd-service
 
-- import_tasks: service_setup.yml
+- include_role:
+    name: openstack.osa.service_setup
+    apply:
+      tags:
+        - common-service
+        - ceilometer-config
   vars:
     _service_adminuri_insecure: "{{ keystone_service_adminuri_insecure }}"
     _service_in_ldap: "{{ ceilometer_service_in_ldap }}"
@@ -101,9 +106,14 @@
   when:
     - _ceilometer_is_first_play_host
   tags:
-    - ceilometer-config
+    - always
 
-- import_tasks: mq_setup.yml
+- include_role:
+    name: openstack.osa.mq_setup
+    apply:
+      tags:
+        - common-mq
+        - ceilometer-config
   vars:
     _oslomsg_rpc_setup_host: "{{ ceilometer_oslomsg_rpc_setup_host }}"
     _oslomsg_rpc_userid: "{{ ceilometer_oslomsg_rpc_userid }}"
@@ -118,8 +128,7 @@
   when:
     - _ceilometer_is_first_play_host
   tags:
-    - common-mq
-    - ceilometer-config
+    - always
 
 - import_tasks: ceilometer_db_setup.yml
   when:
