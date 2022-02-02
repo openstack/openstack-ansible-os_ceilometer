@@ -87,13 +87,6 @@
   with_items: "{{ ceilometer_core_files }}"
   when: item.condition | default(True)
 
-# NOTE(noonedeadpunk): We need to cleanup previously placed pipeline.yml since it will have
-# precedence over libs where we place it now. We should drop it in W
-- name: Cleanup pipeline.yml
-  file:
-    path: /etc/ceilometer/pipeline.yaml
-    state: absent
-
 # NOTE(cloudnull): This will ensure strong permissions on all rootwrap files.
 - name: Set rootwrap.d permissions
   file:
