@@ -27,7 +27,7 @@ ceilometer_service_setup_host_python_interpreter: "{{ openstack_service_setup_ho
 ceilometer_package_state: "{{ package_state | default('latest') }}"
 
 # Set installation method.
-ceilometer_install_method: "source"
+ceilometer_install_method: "{{ service_install_method | default('source') }}"
 ceilometer_venv_python_executable: "{{ openstack_venv_python_executable | default('python3') }}"
 
 ## The git source/branch
