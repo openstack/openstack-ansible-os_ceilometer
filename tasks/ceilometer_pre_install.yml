@@ -54,7 +54,7 @@
 
     - name: Remove the config directory
       file:
-        path: "/etc/cinder"
+        path: "/etc/ceilometer"
         state: absent
       when:
         - ceilometer_conf_dir_stat.stat.isdir is defined and
