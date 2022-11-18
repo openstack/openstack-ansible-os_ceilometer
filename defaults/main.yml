@@ -304,7 +304,6 @@ ceilometer_data_meters_default_file_path: "/etc/openstack_deploy/ceilometer/mete
 ceilometer_event_definitions_default_file_path: "/etc/openstack_deploy/ceilometer/event_definitions.yaml"
 ceilometer_event_pipeline_default_file_path: "/etc/openstack_deploy/ceilometer/event_pipeline.yaml"
 ceilometer_gnocchi_resources_default_file_path: "/etc/openstack_deploy/ceilometer/gnocchi_resources.yaml"
-ceilometer_loadbalancer_v2_meter_definitions_default_file_path: "/etc/openstack_deploy/ceilometer/loadbalancer_v2_meter_definitions.yaml"
 ceilometer_osprofiler_event_definitions_default_file_path: "/etc/openstack_deploy/ceilometer/osprofiler_event_definitions.yaml"
 ceilometer_polling_default_file_path: "/etc/openstack_deploy/ceilometer/polling.yaml"
 ceilometer_pipeline_default_file_path: "/etc/openstack_deploy/ceilometer/pipeline.yaml"
@@ -316,7 +315,6 @@ ceilometer_data_meters_yaml_overrides: {}
 ceilometer_event_definitions_yaml_overrides: {}
 ceilometer_event_pipeline_yaml_overrides: {}
 ceilometer_gnocchi_resources_yaml_overrides: {}
-ceilometer_loadbalancer_v2_meter_definitions_yaml_overrides: {}
 ceilometer_osprofiler_event_definitions_yaml_overrides: {}
 ceilometer_pipeline_yaml_overrides: {}
 ceilometer_polling_yaml_overrides: {}

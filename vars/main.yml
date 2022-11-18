@@ -18,7 +18,6 @@ ceilometer_data_meters_user_content: "{{ lookup('file', ceilometer_data_meters_d
 ceilometer_event_definitions_user_content: "{{ lookup('file', ceilometer_event_definitions_default_file_path, errors='ignore') }}"
 ceilometer_event_pipeline_user_content: "{{ lookup('file', ceilometer_event_pipeline_default_file_path, errors='ignore') }}"
 ceilometer_gnocchi_resources_user_content: "{{ lookup('file', ceilometer_gnocchi_resources_default_file_path, errors='ignore') }}"
-ceilometer_loadbalancer_v2_meter_definitions_user_content: "{{ lookup('file', ceilometer_loadbalancer_v2_meter_definitions_default_file_path, errors='ignore') }}"
 ceilometer_osprofiler_event_definitions_user_content: "{{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') }}"
 ceilometer_polling_user_content: "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') }}"
 ceilometer_pipeline_user_content: "{{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') }}"
@@ -143,14 +142,6 @@ ceilometer_core_files:
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_polling_user_content }}"
-  - tmp_f: "{{ (ceilometer_loadbalancer_v2_meter_definitions_user_content | length > 0) | ternary(false, '/tmp/loadbalancer_v2_meter_definitions.yaml') }}"
-    source_f: "/etc/ceilometer/examples/loadbalancer_v2_meter_definitions.yaml"
-    target_f: "/etc/ceilometer/loadbalancer_v2_meter_definitions.yaml"
-    config_overrides: "{{ ceilometer_loadbalancer_v2_meter_definitions_yaml_overrides }}"
-    config_type: "yaml"
-    list_extend: false
-    content: "{{ ceilometer_loadbalancer_v2_meter_definitions_user_content }}"
-    condition: "{{ ceilometer_install_method == 'source' }}"
   - tmp_f: "{{ (ceilometer_osprofiler_event_definitions_user_content | length > 0) | ternary(false, '/tmp/osprofiler_event_definitions.yaml') }}"
     source_f: "/etc/ceilometer/examples/osprofiler_event_definitions.yaml"
     target_f: "/etc/ceilometer/osprofiler_event_definitions.yaml"
