@@ -81,7 +81,12 @@
       {% set services = [] %}
       {% for service in ceilometer_services.values() %}
       {%   if service.group | intersect(group_names) %}
-      {%     set _ = service.update({'enabled': 'yes', 'state': 'started'}) %}
+      {%     set _ = service.update(
+                {
+                  'enabled': value['enabled'] | default(True),
+                  'state': value['state'] | default('started')
+                }
+              ) %}
       {%     set _ = service.pop('group') %}
       {%     set _ = services.append(service) %}
       {%   endif %}
