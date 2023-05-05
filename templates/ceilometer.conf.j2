@@ -30,11 +30,7 @@ meter_dispatchers = database
 event_dispatchers = database
 {% endif %}
 
-{% if 'ceilometer_agent_central' in group_names %}
-polling_namespaces = central
-{% elif 'ceilometer_agent_compute' in group_names %}
-polling_namespaces = compute
-{% endif %}
+polling_namespaces = {{ _ceilometer_polling_namespaces | join(',') }}
 
 [oslo_messaging_rabbit]
 ssl = {{ ceilometer_oslomsg_rpc_use_ssl }}
