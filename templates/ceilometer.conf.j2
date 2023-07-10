@@ -115,3 +115,11 @@ username = {{ ceilometer_service_user_name }}
 password = {{ ceilometer_service_password }}
 region_name = {{ ceilometer_service_region }}
 interface = {{ ceilometer_service_interface }}
+
+# Cache
+[cache]
+enabled = true
+backend = {{ ceilometer_cache_backend }}
+{% if ceilometer_cache_backend in ceilometer_cache_backend_map['dogpile'] %}
+memcache_servers = {{ ceilometer_cache_servers }}
+{% endif %}

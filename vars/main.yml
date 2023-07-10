@@ -193,3 +193,23 @@ ceilometer_core_files:
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_gnocchi_resources_user_content }}"
+
+_ceilometer_cache_backend_map:
+  dogpile:
+    - oslo_cache.memcache_pool
+    - dogpile.cache.pymemcache
+    - dogpile.cache.memcached
+    - dogpile.cache.bmemcached
+  mongo:
+    - oslo_cache.mongo
+  etcd3gw:
+    - oslo_cache.etcd3gw
+
+_ceilometer_cache_backend_package: |-
+    {% set oslo = namespace(backend='dogpile') %}
+    {% for key, value in _ceilometer_cache_backend_map.items() %}
+    {%   if ceilometer_cache_backend in value %}
+    {%     set oslo.backend = key %}
+    {%-   endif %}
+    {%- endfor %}
+    oslo.cache[{{ oslo.backend }}]

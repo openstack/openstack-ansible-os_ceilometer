@@ -264,13 +264,11 @@ ceilometer_pip_packages:
   - gnocchiclient
   - osprofiler
   - PyMySQL
-  - pymongo
-  - python-memcached
+  - "{{ ceilometer_cache_backend_package }}"
   - systemd-python
   - tooz[zake]
   - warlock
   - kazoo
-  - redis
 
 ceilometer_optional_oslomsg_amqp1_pip_packages:
   - oslo.messaging[amqp1]
@@ -326,3 +324,9 @@ ceilometer_osprofiler_event_definitions_yaml_overrides: {}
 ceilometer_pipeline_yaml_overrides: {}
 ceilometer_polling_yaml_overrides: {}
 ceilometer_rootwrap_conf_overrides: {}
+
+# Caching
+ceilometer_cache_servers: "{{ ceilometer_memcached_servers | default(memcached_servers) }}"
+ceilometer_cache_backend: "{{ openstack_cache_backend | default('oslo_cache.memcache_pool') }}"
+ceilometer_cache_backend_map: "{{ openstack_cache_backend_map | default(_ceilometer_cache_backend_map) }}"
+ceilometer_cache_backend_package: "{{ _ceilometer_cache_backend_package }}"
