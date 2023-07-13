@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ceilometer_package_list: |-
-  {% set packages = (ceilometer_distro_packages + ceilometer_service_distro_packages) %}
+  {% set packages = ceilometer_distro_packages + ceilometer_service_distro_packages %}
   {% if ceilometer_oslomsg_amqp1_enabled | bool %}
   {%   set _ = packages.extend(ceilometer_oslomsg_amqp1_distro_packages) %}
   {% endif %}

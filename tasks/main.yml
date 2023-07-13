@@ -51,15 +51,18 @@
   tags:
     - always
 
-- import_tasks: ceilometer_pre_install.yml
+- name: Importing ceilometer_pre_install tasks
+  import_tasks: ceilometer_pre_install.yml
   tags:
     - ceilometer-install
 
-- import_tasks: ceilometer_install.yml
+- name: Importing ceilometer_install tasks
+  import_tasks: ceilometer_install.yml
   tags:
     - ceilometer-install
 
-- import_tasks: ceilometer_post_install.yml
+- name: Importing ceilometer_post_install tasks
+  import_tasks: ceilometer_post_install.yml
   tags:
     - ceilometer-config
 
@@ -72,10 +75,10 @@
     systemd_tempd_prefix: openstack
     systemd_slice_name: ceilometer
     systemd_lock_path: /var/lock/ceilometer
-    systemd_CPUAccounting: true
-    systemd_BlockIOAccounting: true
-    systemd_MemoryAccounting: true
-    systemd_TasksAccounting: true
+    systemd_service_cpu_accounting: true
+    systemd_service_block_io_accounting: true
+    systemd_service_memory_accounting: true
+    systemd_service_tasks_accounting: true
     systemd_services: |-
       {% set services = [] %}
       {% for service in ceilometer_services.values() %}
@@ -95,7 +98,8 @@
     - ceilometer-config
     - systemd-service
 
-- include_role:
+- name: Including osa.service_setup role
+  include_role:
     name: openstack.osa.service_setup
     apply:
       tags:
@@ -117,7 +121,8 @@
   tags:
     - always
 
-- include_role:
+- name: Including osa.mq_setup role
+  include_role:
     name: openstack.osa.mq_setup
     apply:
       tags:
@@ -139,7 +144,8 @@
   tags:
     - always
 
-- import_tasks: ceilometer_db_setup.yml
+- name: Importing ceilometer_db_setup tasks
+  import_tasks: ceilometer_db_setup.yml
   when:
     - _ceilometer_is_first_play_host
   tags:

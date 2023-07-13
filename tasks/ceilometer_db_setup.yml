@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: check for gnocchi resource file
+- name: Check for gnocchi resource file
   stat:
     path: "{{ ceilometer_lib_dir }}/ceilometer/publisher/data/gnocchi_resources.yaml"
   register: gnocchi_resource_file
