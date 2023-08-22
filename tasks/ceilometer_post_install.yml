@@ -25,7 +25,7 @@
 - name: Copy ceilometer configuration files
   openstack.config_template.config_template:
     content: "{{ item.content | default(omit) }}"
-    src: "{{ item.src  | default(omit) }}"
+    src: "{{ item.src | default(omit) }}"
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default(ceilometer_system_user_name) }}"
     group: "{{ item.group | default(ceilometer_system_group_name) }}"

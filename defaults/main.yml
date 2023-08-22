@@ -20,7 +20,11 @@ debug: False
 # for the service setup. The host must already have
 # clouds.yaml properly configured.
 ceilometer_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
-ceilometer_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((ceilometer_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
+ceilometer_service_setup_host_python_interpreter: >-
+  {{
+    openstack_service_setup_host_python_interpreter | default(
+      (ceilometer_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable']))
+  }}
 
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
@@ -35,7 +39,8 @@ ceilometer_git_repo: https://opendev.org/openstack/ceilometer
 ceilometer_git_install_branch: master
 
 ## The packages to build from source
-ceilometer_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
+ceilometer_upper_constraints_url: >-
+  {{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}
 ceilometer_git_constraints:
   - "--constraint {{ ceilometer_upper_constraints_url }}"
 
@@ -67,7 +72,8 @@ ceilometer_oslomsg_rpc_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}
 
 # Notify
 ceilometer_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
-ceilometer_oslomsg_notify_setup_host: "{{ (ceilometer_oslomsg_notify_host_group in groups) | ternary(groups[ceilometer_oslomsg_notify_host_group][0], 'localhost') }}"
+ceilometer_oslomsg_notify_setup_host: >-
+  {{ (ceilometer_oslomsg_notify_host_group in groups) | ternary(groups[ceilometer_oslomsg_notify_host_group][0], 'localhost') }}
 ceilometer_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
 ceilometer_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
 ceilometer_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
@@ -201,7 +207,7 @@ trove_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 # TODO(ansmith): Change structure when more backends will be supported
 ceilometer_oslomsg_amqp1_enabled: "{{ ceilometer_oslomsg_rpc_transport == 'amqp' }}"
 
-#Ceilometer services info
+# Ceilometer services info
 ceilometer_role_name: admin
 
 ## Service Type and Data
@@ -217,7 +223,8 @@ ceilometer_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}
 ## Ceilometer config
 # Cap the maximum number of threads / workers when a user value is unspecified
 ceilometer_notification_workers_max: 16
-ceilometer_notification_workers: "{{ [[ansible_facts['processor_vcpus']|default(2) // 2, 1] | max, ceilometer_notification_workers_max] | min }}"
+ceilometer_notification_workers: >-
+  {{ [[ansible_facts['processor_vcpus'] | default(2) // 2, 1] | max, ceilometer_notification_workers_max] | min }}
 
 # Enable/Disable Ceilometer per service
 cinder_ceilometer_enabled: "{{ (groups['cinder_all'] is defined) and (groups['cinder_all'] | length > 0) }}"
@@ -294,7 +301,7 @@ ceilometer_required_secrets:
   - ceilometer_oslomsg_notify_password
   - ceilometer_service_password
 
-#: Tunable file-based overrides
+## Tunable file-based overrides
 # The contents of these files, if they exist, are read from the
 # specified path on the deployment host, interpreted by the
 # template engine and copied to the target host. If they do

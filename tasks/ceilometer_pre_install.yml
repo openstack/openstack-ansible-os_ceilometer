@@ -68,8 +68,8 @@
     src: "{{ item.src | default(omit) }}"
     dest: "{{ item.dest | default(omit) }}"
     state: "{{ item.state | default('directory') }}"
-    owner: "{{ item.owner|default(ceilometer_system_user_name) }}"
-    group: "{{ item.group|default(ceilometer_system_group_name) }}"
+    owner: "{{ item.owner | default(ceilometer_system_user_name) }}"
+    group: "{{ item.group | default(ceilometer_system_group_name) }}"
     mode: "{{ item.mode | default(omit) }}"
     force: "{{ item.force | default(omit) }}"
   when:
