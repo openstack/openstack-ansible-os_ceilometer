@@ -20,7 +20,7 @@ auth_strategy = keystone
 aodh_is_enabled = {{ ceilometer_aodh_enabled | bool }}
 
 # RPC
-transport_url = {{ _oslomsg_url(ceilometer_oslomsg_rpc_transport, ceilometer_oslomsg_rpc_userid, ceilometer_oslomsg_rpc_password, groups[ceilometer_oslomsg_rpc_host_group], ceilometer_oslomsg_rpc_port, ceilometer_oslomsg_rpc_vhost, ceilometer_oslomsg_rpc_use_ssl, ceilometer_oslomsg_rpc_ssl_version, ceilometer_oslomsg_rpc_ssl_ca_file) }}
+transport_url = {{ _oslomsg_url(ceilometer_oslomsg_rpc_transport, ceilometer_oslomsg_rpc_userid, ceilometer_oslomsg_rpc_password, groups[ceilometer_oslomsg_rpc_host_group], ceilometer_oslomsg_rpc_port, _ceilometer_oslomsg_rpc_vhost_conf, ceilometer_oslomsg_rpc_use_ssl, ceilometer_oslomsg_rpc_ssl_version, ceilometer_oslomsg_rpc_ssl_ca_file) }}
 
 {% if ceilometer_gnocchi_enabled | bool %}
 event_dispatchers = gnocchi
@@ -32,8 +32,13 @@ event_dispatchers = database
 
 polling_namespaces = {{ _ceilometer_polling_namespaces | join(',') }}
 
+{% if ceilometer_oslomsg_rpc_transport == 'rabbit' %}
 [oslo_messaging_rabbit]
 ssl = {{ ceilometer_oslomsg_rpc_use_ssl }}
+rabbit_quorum_queue = {{ ceilometer_oslomsg_rabbit_quorum_queues }}
+rabbit_quorum_delivery_limit = {{ ceilometer_oslomsg_rabbit_quorum_delivery_limit }}
+rabbit_quorum_max_memory_bytes = {{ ceilometer_oslomsg_rabbit_quorum_max_memory_bytes }}
+{% endif %}
 
 {% if 'ceilometer_agent_notification' in group_names %}
 [notification]
@@ -43,7 +48,7 @@ store_events = {{ not ceilometer_gnocchi_enabled | bool }}
 # Notification queues to listen on
 
 # Ceilometer needs to connect to it's own notification vhost
-messaging_urls = {{ _oslomsg_url(ceilometer_oslomsg_notify_transport, ceilometer_oslomsg_notify_userid, ceilometer_oslomsg_notify_password, groups[ceilometer_oslomsg_notify_host_group], ceilometer_oslomsg_notify_port, ceilometer_oslomsg_notify_vhost, ceilometer_oslomsg_notify_use_ssl, ceilometer_oslomsg_notify_ssl_version, ceilometer_oslomsg_notify_ssl_ca_file) }}
+messaging_urls = {{ _oslomsg_url(ceilometer_oslomsg_notify_transport, ceilometer_oslomsg_notify_userid, ceilometer_oslomsg_notify_password, groups[ceilometer_oslomsg_notify_host_group], ceilometer_oslomsg_notify_port, _ceilometer_oslomsg_notify_vhost_conf, ceilometer_oslomsg_notify_use_ssl, ceilometer_oslomsg_notify_ssl_version, ceilometer_oslomsg_notify_ssl_ca_file) }}
 
 {% if cinder_ceilometer_enabled %}
 # Cinder notifications

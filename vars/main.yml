@@ -22,6 +22,18 @@ ceilometer_osprofiler_event_definitions_user_content: "{{ lookup('file', ceilome
 ceilometer_polling_user_content: "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') }}"
 ceilometer_pipeline_user_content: "{{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') }}"
 
+_ceilometer_oslomsg_rpc_vhost_conf: >-
+  {{
+    (ceilometer_oslomsg_rpc_vhost is string) | ternary(ceilometer_oslomsg_rpc_vhost, ceilometer_oslomsg_rpc_vhost | selectattr(
+      'state', 'eq', 'present') | map(attribute='name') | first)
+  }}
+
+_ceilometer_oslomsg_notify_vhost_conf: >-
+  {{
+    (ceilometer_oslomsg_notify_vhost is string) | ternary(ceilometer_oslomsg_notify_vhost, ceilometer_oslomsg_notify_vhost | selectattr(
+      'state', 'eq', 'present') | map(attribute='name') | first)
+  }}
+
 _ceilometer_polling_namespaces: |
   {% set _polling_namespaces = [] %}
   {% if 'ceilometer_agent_central' in group_names %}
