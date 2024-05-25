@@ -39,6 +39,9 @@ rabbit_quorum_queue = {{ ceilometer_oslomsg_rabbit_quorum_queues }}
 rabbit_transient_quorum_queue = {{ ceilometer_oslomsg_rabbit_transient_quorum_queues }}
 rabbit_qos_prefetch_count = {{ ceilometer_oslomsg_rabbit_qos_prefetch_count }}
 use_queue_manager = {{ ceilometer_oslomsg_rabbit_queue_manager }}
+{% if ceilometer_oslomsg_rabbit_queue_manager %}
+hostname = {{ [ansible_facts['hostname'], ceilometer_service_user_name] | join('-') }}
+{% endif %}
 rabbit_stream_fanout = {{ ceilometer_oslomsg_rabbit_stream_fanout }}
 rabbit_quorum_delivery_limit = {{ ceilometer_oslomsg_rabbit_quorum_delivery_limit }}
 rabbit_quorum_max_memory_bytes = {{ ceilometer_oslomsg_rabbit_quorum_max_memory_bytes }}
