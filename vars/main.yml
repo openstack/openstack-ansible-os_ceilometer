@@ -47,7 +47,7 @@ _ceilometer_polling_namespaces: |
 _ceilometer_is_first_play_host: >-
   {{
     (ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | length > 0) and
-    (inventory_hostname == groups[ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | first] | intersect(
+    (inventory_hostname == groups[ceilometer_services['ceilometer-agent-notification']['group'] | intersect(group_names) | first] | select('in',
       ansible_play_hosts) | first)
   }}
 
