@@ -111,6 +111,11 @@ messaging_urls = {{ _oslomsg_url(swift_oslomsg_notify_transport, swift_oslomsg_n
 # Trove notifications
 messaging_urls = {{ _oslomsg_url(trove_oslomsg_notify_transport, trove_oslomsg_notify_userid, trove_oslomsg_notify_password, groups[trove_oslomsg_notify_host_group], trove_oslomsg_notify_port, trove_oslomsg_notify_vhost, trove_oslomsg_notify_use_ssl, trove_oslomsg_notify_ssl_version, trove_oslomsg_notify_ssl_ca_file) }}
 {% endif %}
+
+{% if magnum_ceilometer_enabled %}
+# Magnum notifications
+messaging_urls = {{ _oslomsg_url(magnum_oslomsg_notify_transport, magnum_oslomsg_notify_userid, magnum_oslomsg_notify_password, groups[magnum_oslomsg_notify_host_group], magnum_oslomsg_notify_port, magnum_oslomsg_notify_vhost, magnum_oslomsg_notify_use_ssl, magnum_oslomsg_notify_ssl_version, magnum_oslomsg_notify_ssl_ca_file) }}
+{% endif %}
 {% endif %}
 
 [publisher]
