@@ -264,6 +264,21 @@ trove_oslomsg_notify_vhost: >-
 trove_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
 trove_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
+# Magnum notifications
+magnum_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
+magnum_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
+magnum_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
+magnum_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
+magnum_oslomsg_notify_userid: "{{ magnum_oslomsg_rpc_userid | default('magnum') }}"
+magnum_oslomsg_notify_password: "{{ magnum_ceilometer_enabled | ternary(magnum_oslomsg_rpc_password, '') }}"
+magnum_oslomsg_notify_vhost: >-
+  {{
+    magnum_oslomsg_rpc_vhost | default(
+      (magnum_oslomsg_rabbit_quorum_queues | default(oslomsg_rabbit_quorum_queues | default(True)) | bool) | ternary('magnum', '/magnum'))
+  }}
+magnum_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
+magnum_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
+
 ## (Qdrouterd) info
 # TODO(ansmith): Change structure when more backends will be supported
 ceilometer_oslomsg_amqp1_enabled: "{{ ceilometer_oslomsg_rpc_transport == 'amqp' }}"
@@ -299,6 +314,7 @@ octavia_ceilometer_enabled: "{{ (groups['octavia_all'] is defined) and (groups['
 sahara_ceilometer_enabled: "{{ (groups['sahara_all'] is defined) and (groups['sahara_all'] | length > 0) }}"
 swift_ceilometer_enabled: "{{ (groups['swift_all'] is defined) and (groups['swift_all'] | length > 0) }}"
 trove_ceilometer_enabled: "{{ (groups['trove_all'] is defined) and (groups['trove_all'] | length > 0) }}"
+magnum_ceilometer_enabled: "{{ (groups['magnum_all'] is defined) and (groups['magnum_all'] | length > 0) }}"
 
 # Enable/Disable Telemetry partner services in Ceilometer
 # Defaults to True if the service is deployed.
