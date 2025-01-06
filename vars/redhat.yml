@@ -31,10 +31,5 @@ ceilometer_service_distro_packages:
   - openstack-ceilometer-polling
   - python3-systemd
 
-ceilometer_oslomsg_amqp1_distro_packages:
-  - cyrus-sasl-lib
-  - cyrus-sasl-plain
-  - cyrus-sasl-md5
-
 ceilometer_packages_to_symlink:
   - python3-libvirt

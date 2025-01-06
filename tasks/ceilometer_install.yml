@@ -58,12 +58,7 @@
     venv_install_destination_path: "{{ ceilometer_bin | dirname }}"
     venv_install_distro_package_list: "{{ ceilometer_distro_packages }}"
     venv_pip_install_args: "{{ ceilometer_pip_install_args }}"
-    venv_pip_packages: >-
-      {{
-        (ceilometer_oslomsg_amqp1_enabled | bool) | ternary(
-          ceilometer_pip_packages + ceilometer_optional_oslomsg_amqp1_pip_packages + ceilometer_extra_pip_packages | default([]),
-          ceilometer_pip_packages + ceilometer_extra_pip_packages | default([]))
-      }}
+    venv_pip_packages: "{{ (ceilometer_pip_packages + ceilometer_extra_pip_packages | default([])) }}"
     venv_packages_to_symlink: "{{ ceilometer_packages_to_symlink }}"
     venv_facts_when_changed:
       - section: "ceilometer"

@@ -279,10 +279,6 @@ magnum_oslomsg_notify_vhost: >-
 magnum_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
 magnum_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
-## (Qdrouterd) info
-# TODO(ansmith): Change structure when more backends will be supported
-ceilometer_oslomsg_amqp1_enabled: "{{ ceilometer_oslomsg_rpc_transport == 'amqp' }}"
-
 # Ceilometer services info
 ceilometer_role_name: admin
 
@@ -346,9 +342,6 @@ ceilometer_pip_packages:
   - tooz[zake]
   - warlock
   - kazoo
-
-ceilometer_optional_oslomsg_amqp1_pip_packages:
-  - oslo.messaging[amqp1]
 
 ceilometer_agent_init_overrides: {}
 ceilometer_polling_init_overrides: {}

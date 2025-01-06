@@ -32,9 +32,5 @@ ceilometer_service_distro_packages:
   - python3-gnocchiclient
   - python3-systemd
 
-ceilometer_oslomsg_amqp1_distro_packages:
-  - libsasl2-modules
-  - sasl2-bin
-
 ceilometer_packages_to_symlink:
   - python3-libvirt
