@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Stop services
-  service:
+  ansible.builtin.service:
     name: "{{ item.0.service_name }}"
     enabled: true
     state: "stopped"
@@ -33,7 +33,7 @@
     - "systemd service changed"
 
 - name: Start services
-  service:
+  ansible.builtin.service:
     name: "{{ item.0.service_name }}"
     enabled: true
     state: "started"

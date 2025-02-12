@@ -14,12 +14,12 @@
 # limitations under the License.
 
 - name: Check for gnocchi resource file
-  stat:
+  ansible.builtin.stat:
     path: "{{ ceilometer_lib_dir }}/ceilometer/publisher/data/gnocchi_resources.yaml"
   register: gnocchi_resource_file
 
 - name: Initialize Gnocchi database by creating ceilometer resources
-  command: "{{ ceilometer_bin }}/ceilometer-upgrade"
+  ansible.builtin.command: "{{ ceilometer_bin }}/ceilometer-upgrade"
   become: true
   become_user: "{{ ceilometer_system_user_name }}"
   changed_when: false

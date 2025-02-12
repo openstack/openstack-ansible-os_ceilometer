@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Record the installation method
-  ini_file:
+  community.general.ini_file:
     dest: "/etc/ansible/facts.d/openstack_ansible.fact"
     section: "ceilometer"
     option: "install_method"
@@ -22,12 +22,12 @@
     mode: "0644"
 
 - name: Refresh local facts to ensure the ceilometer section is present
-  setup:
+  ansible.builtin.setup:
     filter: ansible_local
     gather_subset: "!all"
 
 - name: Install distro packages
-  package:
+  ansible.builtin.package:
     name: "{{ ceilometer_package_list }}"
     state: "{{ ceilometer_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary('yes', omit) }}"
@@ -43,13 +43,13 @@
 # constraints are given which will always happen with a source install
 # and wheels built on the repo server. We must filter ceilometer out of u-c.
 - name: Retrieve the constraints URL
-  uri:
+  ansible.builtin.uri:
     url: "{{ ceilometer_upper_constraints_url }}"
     return_content: true
   register: _u_c_contents
 
 - name: Install the python venv
-  include_role:
+  ansible.builtin.include_role:
     name: "python_venv_build"
   vars:
     venv_python_executable: "{{ ceilometer_venv_python_executable }}"

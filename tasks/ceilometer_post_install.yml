@@ -14,12 +14,12 @@
 # limitations under the License.
 
 - name: Find the venv's python version
-  command: "{{ ceilometer_bin }}/{{ ceilometer_venv_python_executable }} -c 'import ceilometer; print(ceilometer.__file__)'"
+  ansible.builtin.command: "{{ ceilometer_bin }}/{{ ceilometer_venv_python_executable }} -c 'import ceilometer; print(ceilometer.__file__)'"
   changed_when: false
   register: _ceilometer_python_venv_details
 
 - name: Set python lib dir fact
-  set_fact:
+  ansible.builtin.set_fact:
     ceilometer_lib_dir: "{{ _ceilometer_python_venv_details.stdout | dirname | dirname }}"
 
 - name: Copy ceilometer configuration files
@@ -45,14 +45,14 @@
 #                  because we only want to copy the original files once. and we
 #                  don't want to need multiple tasks.
 - name: Preserve original configuration file(s)
-  command: "cp {{ item.source_f }} {{ item.source_f }}.original"
+  ansible.builtin.command: "cp {{ item.source_f }} {{ item.source_f }}.original"
   args:
     creates: "{{ item.source_f }}.original"
   with_items: "{{ ceilometer_core_files }}"
   when: item.condition | default(True)
 
 - name: Fetch override files
-  fetch:
+  ansible.builtin.fetch:
     src: "{{ item.source_f }}.original"
     dest: "{{ item.tmp_f }}"
     flat: true
@@ -79,7 +79,7 @@
     - Restart ceilometer services
 
 - name: Cleanup fetched temp files
-  file:
+  ansible.builtin.file:
     path: "{{ item.tmp_f }}"
     state: absent
   changed_when: false
@@ -89,7 +89,7 @@
 
 # NOTE(cloudnull): This will ensure strong permissions on all rootwrap files.
 - name: Set rootwrap.d permissions
-  file:
+  ansible.builtin.file:
     path: "/etc/ceilometer/rootwrap.d"
     owner: "root"
     group: "root"

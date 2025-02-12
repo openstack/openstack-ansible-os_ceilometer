@@ -14,13 +14,13 @@
 # limitations under the License.
 
 - name: Create the system group
-  group:
+  ansible.builtin.group:
     name: "{{ ceilometer_system_group_name }}"
     state: "present"
     system: "yes"
 
 - name: Create the ceilometer system user
-  user:
+  ansible.builtin.user:
     name: "{{ ceilometer_system_user_name }}"
     group: "{{ ceilometer_system_group_name }}"
     comment: "{{ ceilometer_system_comment }}"
@@ -30,7 +30,7 @@
     home: "{{ ceilometer_system_user_home }}"
 
 - name: Create the swift system user and add to ceilometer group
-  user:
+  ansible.builtin.user:
     name: "{{ swift_system_user_name }}"
     group: "{{ ceilometer_system_group_name }}"
     comment: "{{ swift_system_comment }}"
@@ -45,24 +45,24 @@
 #                  removed. This is required on source installs because the
 #                  config directory is a link.
 - name: Source config block
+  when:
+    - ceilometer_install_method == 'source'
   block:
     - name: Stat config directory
-      stat:
+      ansible.builtin.stat:
         path: "/etc/ceilometer"
       register: ceilometer_conf_dir_stat
 
     - name: Remove the config directory
-      file:
+      ansible.builtin.file:
         path: "/etc/ceilometer"
         state: absent
       when:
         - ceilometer_conf_dir_stat.stat.isdir is defined and
           ceilometer_conf_dir_stat.stat.isdir
-  when:
-    - ceilometer_install_method == 'source'
 
 - name: Create ceilometer dir
-  file:
+  ansible.builtin.file:
     path: "{{ item.path | default(omit) }}"
     src: "{{ item.src | default(omit) }}"
     dest: "{{ item.dest | default(omit) }}"
