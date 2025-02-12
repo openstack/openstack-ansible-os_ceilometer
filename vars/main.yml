@@ -115,7 +115,7 @@ _ceilometer_pipeline_yaml_overrides:
           parameters:
             target:
               name: "cpu.delta"
-            growth_only: True
+            growth_only: true
       publishers:
         - gnocchi://
     - name: disk_sink
@@ -218,10 +218,10 @@ _ceilometer_cache_backend_map:
     - oslo_cache.etcd3gw
 
 _ceilometer_cache_backend_package: |-
-    {% set oslo = namespace(backend='dogpile') %}
-    {% for key, value in _ceilometer_cache_backend_map.items() %}
-    {%   if ceilometer_cache_backend in value %}
-    {%     set oslo.backend = key %}
-    {%-   endif %}
-    {%- endfor %}
-    oslo.cache[{{ oslo.backend }}]
+  {% set oslo = namespace(backend='dogpile') %}
+  {% for key, value in _ceilometer_cache_backend_map.items() %}
+  {%   if ceilometer_cache_backend in value %}
+  {%     set oslo.backend = key %}
+  {%-   endif %}
+  {%- endfor %}
+  oslo.cache[{{ oslo.backend }}]

@@ -55,7 +55,7 @@
   fetch:
     src: "{{ item.source_f }}.original"
     dest: "{{ item.tmp_f }}"
-    flat: yes
+    flat: true
   changed_when: false
   with_items: "{{ ceilometer_core_files }}"
   when:

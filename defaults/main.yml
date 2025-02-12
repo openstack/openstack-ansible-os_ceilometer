@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ## Verbosity Options
-debug: False
+debug: false
 
 # Set the host which will execute the shade modules
 # for the service setup. The host must already have

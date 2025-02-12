@@ -20,7 +20,7 @@
 
 - name: Initialize Gnocchi database by creating ceilometer resources
   command: "{{ ceilometer_bin }}/ceilometer-upgrade"
-  become: yes
+  become: true
   become_user: "{{ ceilometer_system_user_name }}"
   changed_when: false
   when:

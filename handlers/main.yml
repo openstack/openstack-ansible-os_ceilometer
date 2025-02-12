@@ -16,9 +16,9 @@
 - name: Stop services
   service:
     name: "{{ item.0.service_name }}"
-    enabled: yes
+    enabled: true
     state: "stopped"
-    daemon_reload: yes
+    daemon_reload: true
   with_subelements:
     - "{{ ceilometer_services }}"
     - group
@@ -35,9 +35,9 @@
 - name: Start services
   service:
     name: "{{ item.0.service_name }}"
-    enabled: yes
+    enabled: true
     state: "started"
-    daemon_reload: yes
+    daemon_reload: true
   with_subelements:
     - "{{ ceilometer_services }}"
     - group
