@@ -162,7 +162,8 @@ ceilometer_core_files:
     config_overrides: >-
       {{
         (ceilometer_pipeline_user_content | length > 0) | ternary(
-          _ceilometer_pipeline_yaml_overrides | combine(ceilometer_pipeline_yaml_overrides, recursive=True), ceilometer_pipeline_yaml_overrides)
+          ceilometer_pipeline_yaml_overrides,
+          _ceilometer_pipeline_yaml_overrides | combine(ceilometer_pipeline_yaml_overrides, recursive=True))
       }}
     config_type: "yaml"
     list_extend: false
