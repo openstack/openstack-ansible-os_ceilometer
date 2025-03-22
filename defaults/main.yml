@@ -220,21 +220,6 @@ octavia_oslomsg_notify_vhost: >-
 octavia_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
 octavia_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 
-# Sahara notifications
-sahara_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
-sahara_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
-sahara_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
-sahara_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
-sahara_oslomsg_notify_userid: "{{ sahara_oslomsg_rpc_userid | default('sahara') }}"
-sahara_oslomsg_notify_password: "{{ sahara_ceilometer_enabled | ternary(sahara_oslomsg_rpc_password, '') }}"
-sahara_oslomsg_notify_vhost: >-
-  {{
-    sahara_oslomsg_rpc_vhost | default(
-      (sahara_oslomsg_rabbit_quorum_queues | default(oslomsg_rabbit_quorum_queues | default(True)) | bool) | ternary('sahara', '/sahara'))
-  }}
-sahara_oslomsg_notify_ssl_version: "{{ oslomsg_rpc_ssl_version | default('TLSv1_2') }}"
-sahara_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
-
 # Swift notifications
 swift_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
 swift_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
@@ -307,7 +292,6 @@ keystone_ceilometer_enabled: "{{ (groups['keystone_all'] is defined) and (groups
 neutron_ceilometer_enabled: "{{ (groups['neutron_all'] is defined) and (groups['neutron_all'] | length > 0) }}"
 nova_ceilometer_enabled: "{{ (groups['nova_all'] is defined) and (groups['nova_all'] | length > 0) }}"
 octavia_ceilometer_enabled: "{{ (groups['octavia_all'] is defined) and (groups['octavia_all'] | length > 0) }}"
-sahara_ceilometer_enabled: "{{ (groups['sahara_all'] is defined) and (groups['sahara_all'] | length > 0) }}"
 swift_ceilometer_enabled: "{{ (groups['swift_all'] is defined) and (groups['swift_all'] | length > 0) }}"
 trove_ceilometer_enabled: "{{ (groups['trove_all'] is defined) and (groups['trove_all'] | length > 0) }}"
 magnum_ceilometer_enabled: "{{ (groups['magnum_all'] is defined) and (groups['magnum_all'] | length > 0) }}"

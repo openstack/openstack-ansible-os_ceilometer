@@ -97,11 +97,6 @@ messaging_urls = {{ _oslomsg_url(nova_oslomsg_notify_transport, nova_oslomsg_not
 messaging_urls = {{ _oslomsg_url(octavia_oslomsg_notify_transport, octavia_oslomsg_notify_userid, octavia_oslomsg_notify_password, groups[octavia_oslomsg_notify_host_group], octavia_oslomsg_notify_port, octavia_oslomsg_notify_vhost, octavia_oslomsg_notify_use_ssl, octavia_oslomsg_notify_ssl_version, octavia_oslomsg_notify_ssl_ca_file) }}
 {% endif %}
 
-{% if sahara_ceilometer_enabled %}
-# Sahara notifications
-messaging_urls = {{ _oslomsg_url(sahara_oslomsg_notify_transport, sahara_oslomsg_notify_userid, sahara_oslomsg_notify_password, groups[sahara_oslomsg_notify_host_group], sahara_oslomsg_notify_port, sahara_oslomsg_notify_vhost, sahara_oslomsg_notify_use_ssl, sahara_oslomsg_notify_ssl_version, sahara_oslomsg_notify_ssl_ca_file) }}
-{% endif %}
-
 {% if swift_ceilometer_enabled %}
 # Ceilometer notifications
 messaging_urls = {{ _oslomsg_url(swift_oslomsg_notify_transport, swift_oslomsg_notify_userid, swift_oslomsg_notify_password, groups[swift_oslomsg_notify_host_group], swift_oslomsg_notify_port, swift_oslomsg_notify_vhost, swift_oslomsg_notify_use_ssl, swift_oslomsg_notify_ssl_version, swift_oslomsg_notify_ssl_ca_file) }}
