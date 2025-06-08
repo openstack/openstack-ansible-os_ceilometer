@@ -1,14 +1,6 @@
-========================
-Team and repository tags
-========================
-
-.. image:: https://governance.openstack.org/tc/badges/openstack-ansible-os_ceilometer.svg
-    :target: https://governance.openstack.org/tc/reference/tags/index.html
-
-.. Change things from this point on
-
+====================
 OpenStack Ceilometer
-####################
+====================
 
 Ansible Role that installs and configures OpenStack Ceilometer.
 
