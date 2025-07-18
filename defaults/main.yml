@@ -298,7 +298,6 @@ magnum_ceilometer_enabled: "{{ (groups['magnum_all'] is defined) and (groups['ma
 
 # Enable/Disable Telemetry partner services in Ceilometer
 # Defaults to True if the service is deployed.
-ceilometer_aodh_enabled: "{{ groups['aodh_all'] is defined and groups['aodh_all'] | length > 0 }}"
 ceilometer_gnocchi_enabled: "{{ groups['gnocchi_all'] is defined and groups['gnocchi_all'] | length > 0 }}"
 
 # TODO (andymccr): Remove in Queen release (along with config template overrides)
