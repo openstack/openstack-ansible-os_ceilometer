@@ -323,7 +323,7 @@ ceilometer_pip_packages:
   - PyMySQL
   - "{{ ceilometer_cache_backend_package }}"
   - systemd-python
-  - tooz[zake]
+  - tooz
   - warlock
   - kazoo
 
