@@ -16,19 +16,9 @@ use_journal = True
 # Disable stderr logging
 use_stderr = False
 debug = {{ debug }}
-auth_strategy = keystone
-aodh_is_enabled = {{ ceilometer_aodh_enabled | bool }}
 
 # RPC
 transport_url = {{ _oslomsg_url(ceilometer_oslomsg_rpc_transport, ceilometer_oslomsg_rpc_userid, ceilometer_oslomsg_rpc_password, groups[ceilometer_oslomsg_rpc_host_group], ceilometer_oslomsg_rpc_port, _ceilometer_oslomsg_rpc_vhost_conf, ceilometer_oslomsg_rpc_use_ssl, ceilometer_oslomsg_rpc_ssl_version, ceilometer_oslomsg_rpc_ssl_ca_file) }}
-
-{% if ceilometer_gnocchi_enabled | bool %}
-event_dispatchers = gnocchi
-meter_dispatchers = gnocchi
-{% else %}
-meter_dispatchers = database
-event_dispatchers = database
-{% endif %}
 
 polling_namespaces = {{ _ceilometer_polling_namespaces | join(',') }}
 
@@ -50,7 +40,6 @@ rabbit_quorum_max_memory_bytes = {{ ceilometer_oslomsg_rabbit_quorum_max_memory_
 {% if 'ceilometer_agent_notification' in group_names %}
 [notification]
 workers = {{ ceilometer_notification_workers }}
-store_events = {{ not ceilometer_gnocchi_enabled | bool }}
 
 # Notification queues to listen on
 
