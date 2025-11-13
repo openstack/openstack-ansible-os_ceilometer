@@ -65,23 +65,16 @@ writing, the following backends are supported:
 
   - Memcached: Recommended for testing.
 
-.. important::
+At the moment OpenStack-Ansible does support deployment of Zookeeper
+backend using `zookeeper <https://docs.openstack.org/ansible-role-zookeeper/latest/>`
 
-   The OpenStack-Ansible project does not deploy these backends.
-   One of the backends must exist before deploying the ceilometer service.
+In case you have defined ``coordination_hosts`` in your
+``openstack_user_config.yml`` or in one of ``conf.d`` files, Ceilometer
+should be configured to use Zookeeper as its coordination backend
+by default.
 
-Achieve HA by configuring the proper directives in ``ceilometer.conf`` using
-``ceilometer_ceilometer_conf_overrides`` in the ``user_variables.yml`` file.
-The `Ceilometer Admin Guide`_ details the
-options used in ``ceilometer.conf`` for HA deployment. The following is an
-example of ``ceilometer_ceilometer_conf_overrides``:
+You can explicitly disable coordination by setting
+``ceilometer_coordination_enable: false`` in your ``user_variables.yml``.
 
-.. _Ceilometer Admin Guide: https://docs.openstack.org/admin-guide/telemetry-data-collection.html
-
-.. code-block:: yaml
-
-   ceilometer_ceilometer_conf_overrides:
-     coordination:
-       backend_url: "zookeeper://172.20.1.110:2181"
-     notification:
-       workload_partitioning: True
+If you want to use custom coordination driver, you can override
+``ceilometer_coordination_url`` to point to such custom backend.
