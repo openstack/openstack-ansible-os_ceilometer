@@ -267,6 +267,16 @@ magnum_oslomsg_notify_ssl_ca_file: "{{ oslomsg_rpc_ssl_ca_file | default('') }}"
 # Ceilometer services info
 ceilometer_role_name: admin
 
+## Coordination
+ceilometer_coordination_driver: "{{ coordination_driver | default('zookeeper') }}"
+ceilometer_coordination_group: "{{ coordination_host_group | default('zookeeper_all') }}"
+ceilometer_coordination_enable: "{{ (ceilometer_coordination_group in groups and groups[ceilometer_coordination_group] | length > 0) }}"
+ceilometer_coordination_namespace: ceilometer
+ceilometer_coordination_client_ssl: "{{ coordination_client_ssl | default(False) }}"
+ceilometer_coordination_verify_cert: "{{ coordination_verify_cert | default(True) }}"
+ceilometer_coordination_port: "{{ coordination_port | default(ceilometer_coordination_client_ssl | ternary('2281', '2181')) }}"
+ceilometer_coordination_url: "{{ _ceilometer_coordination_url | default() }}"
+
 ## Service Type and Data
 ceilometer_service_region: "{{ service_region | default('RegionOne') }}"
 ceilometer_service_user_name: ceilometer
@@ -322,9 +332,8 @@ ceilometer_pip_packages:
   - PyMySQL
   - "{{ ceilometer_cache_backend_package }}"
   - systemd-python
-  - tooz
+  - "tooz[{{ ceilometer_coordination_driver }}]"
   - warlock
-  - kazoo
 
 ceilometer_agent_init_overrides: {}
 ceilometer_polling_init_overrides: {}

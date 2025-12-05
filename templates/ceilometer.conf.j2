@@ -102,6 +102,11 @@ messaging_urls = {{ _oslomsg_url(magnum_oslomsg_notify_transport, magnum_oslomsg
 {% endif %}
 {% endif %}
 
+{% if ceilometer_coordination_enable %}
+[coordination]
+backend_url = {{ ceilometer_coordination_url }}
+{% endif %}
+
 [publisher]
 telemetry_secret = {{ ceilometer_telemetry_secret }}
 

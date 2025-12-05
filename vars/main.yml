@@ -226,3 +226,12 @@ _ceilometer_cache_backend_package: |-
   {%-   endif %}
   {%- endfor %}
   oslo.cache[{{ oslo.backend }}]
+
+_ceilometer_coordination_url: >-
+  {{ ceilometer_coordination_driver }}://{{
+      groups[ceilometer_coordination_group]
+        | map('extract', hostvars, 'ansible_host')
+        | list | join(':' ~ ceilometer_coordination_port ~ ',')
+    }}:{{ ceilometer_coordination_port -}}
+    ?namespace={{ ceilometer_coordination_namespace }}{% if ceilometer_coordination_client_ssl | bool -%}
+    &use_ssl=True&verify_certs={{ ceilometer_coordination_verify_cert | bool }}{% endif %}
