@@ -2,7 +2,7 @@
 {% macro _oslomsg_url(transport, userid, password, hosts, port, vhost, use_ssl, ssl_version, ca_file) %}
 {% set _url = [] %}
 {% for host in hosts %}
-{%   set _ = _url.append(userid + ':' + password + '@' + hostvars[host]['ansible_host'] + ':' + port) %}
+{%   set _ = _url.append(userid | string + ':' + password | string + '@' + hostvars[host]['ansible_host'] + ':' + port | string) %}
 {% endfor %}
 {% if use_ssl | bool %}
 {{ transport }}://{{ _url | join(',') }}/{{ vhost }}?ssl=1&ssl_version={{ ssl_version }}&ssl_ca_file={{ ca_file }}

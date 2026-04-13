@@ -60,7 +60,7 @@
   with_items: "{{ ceilometer_core_files }}"
   when:
     - item.condition | default(True)
-    - item.tmp_f
+    - item.tmp_f | length > 0
   run_once: true
 
 - name: Copy common config

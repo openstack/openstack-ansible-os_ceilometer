@@ -14,13 +14,20 @@
 # limitations under the License.
 
 # These vars find a file on the deployment node, if it exists - otherwise the result is empty.
-ceilometer_data_meters_user_content: "{{ lookup('file', ceilometer_data_meters_default_file_path, errors='ignore') }}"
-ceilometer_event_definitions_user_content: "{{ lookup('file', ceilometer_event_definitions_default_file_path, errors='ignore') }}"
-ceilometer_event_pipeline_user_content: "{{ lookup('file', ceilometer_event_pipeline_default_file_path, errors='ignore') }}"
-ceilometer_gnocchi_resources_user_content: "{{ lookup('file', ceilometer_gnocchi_resources_default_file_path, errors='ignore') }}"
-ceilometer_osprofiler_event_definitions_user_content: "{{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') }}"
-ceilometer_polling_user_content: "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') }}"
-ceilometer_pipeline_user_content: "{{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') }}"
+ceilometer_data_meters_user_content: >-
+  "{{ lookup('file', ceilometer_data_meters_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_event_definitions_user_content: >-
+  "{{ lookup('file', ceilometer_event_definitions_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_event_pipeline_user_content: >-
+  "{{ lookup('file', ceilometer_event_pipeline_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_gnocchi_resources_user_content: >-
+  "{{ lookup('file', ceilometer_gnocchi_resources_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_osprofiler_event_definitions_user_content: >-
+  "{{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_polling_user_content: >-
+  "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') | default('', true) }}"
+ceilometer_pipeline_user_content: >-
+  "{{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') | default('', true) }}"
 
 _ceilometer_oslomsg_rpc_vhost_conf: >-
   {{
@@ -157,7 +164,7 @@ ceilometer_core_files:
     owner: "root"
     group: "{{ ceilometer_system_group_name }}"
     mode: "0640"
-  - tmp_f: "{{ (ceilometer_pipeline_user_content | length > 0) | ternary(false, '/tmp/pipeline.yaml') }}"
+  - tmp_f: "{{ (ceilometer_pipeline_user_content | length > 0) | ternary('', '/tmp/pipeline.yaml') }}"
     source_f: "{{ ceilometer_lib_dir }}/ceilometer/pipeline/data/pipeline.yaml"
     config_overrides: >-
       {{
@@ -168,13 +175,13 @@ ceilometer_core_files:
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_pipeline_user_content }}"
-  - tmp_f: "{{ (ceilometer_polling_user_content | length > 0) | ternary(false, '/tmp/polling.yaml') }}"
+  - tmp_f: "{{ (ceilometer_polling_user_content | length > 0) | ternary('', '/tmp/polling.yaml') }}"
     source_f: "/etc/ceilometer/polling.yaml"
     config_overrides: "{{ ceilometer_polling_yaml_overrides }}"
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_polling_user_content }}"
-  - tmp_f: "{{ (ceilometer_osprofiler_event_definitions_user_content | length > 0) | ternary(false, '/tmp/osprofiler_event_definitions.yaml') }}"
+  - tmp_f: "{{ (ceilometer_osprofiler_event_definitions_user_content | length > 0) | ternary('', '/tmp/osprofiler_event_definitions.yaml') }}"
     source_f: "/etc/ceilometer/examples/osprofiler_event_definitions.yaml"
     target_f: "/etc/ceilometer/osprofiler_event_definitions.yaml"
     config_overrides: "{{ ceilometer_osprofiler_event_definitions_yaml_overrides }}"
@@ -182,25 +189,25 @@ ceilometer_core_files:
     list_extend: false
     content: "{{ ceilometer_osprofiler_event_definitions_user_content }}"
     condition: "{{ ceilometer_install_method == 'source' }}"
-  - tmp_f: "{{ (ceilometer_data_meters_user_content | length > 0) | ternary(false, '/tmp/meters.yaml') }}"
+  - tmp_f: "{{ (ceilometer_data_meters_user_content | length > 0) | ternary('', '/tmp/meters.yaml') }}"
     source_f: "{{ ceilometer_lib_dir }}/ceilometer/data/meters.d/meters.yaml"
     config_overrides: "{{ ceilometer_data_meters_yaml_overrides }}"
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_data_meters_user_content }}"
-  - tmp_f: "{{ (ceilometer_event_definitions_user_content | length > 0) | ternary(false, '/tmp/event_definitions.yaml') }}"
+  - tmp_f: "{{ (ceilometer_event_definitions_user_content | length > 0) | ternary('', '/tmp/event_definitions.yaml') }}"
     source_f: "{{ ceilometer_lib_dir }}/ceilometer/pipeline/data/event_definitions.yaml"
     config_overrides: "{{ ceilometer_event_definitions_yaml_overrides }}"
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_event_definitions_user_content }}"
-  - tmp_f: "{{ (ceilometer_event_pipeline_user_content | length > 0) | ternary(false, '/tmp/event_pipeline.yaml') }}"
+  - tmp_f: "{{ (ceilometer_event_pipeline_user_content | length > 0) | ternary('', '/tmp/event_pipeline.yaml') }}"
     source_f: "{{ ceilometer_lib_dir }}/ceilometer/pipeline/data/event_pipeline.yaml"
     config_overrides: "{{ ceilometer_event_pipeline_yaml_overrides }}"
     config_type: "yaml"
     list_extend: false
     content: "{{ ceilometer_event_pipeline_user_content }}"
-  - tmp_f: "{{ (ceilometer_gnocchi_resources_user_content | length > 0) | ternary(false, '/tmp/gnocchi_resources.yaml') }}"
+  - tmp_f: "{{ (ceilometer_gnocchi_resources_user_content | length > 0) | ternary('', '/tmp/gnocchi_resources.yaml') }}"
     source_f: "{{ ceilometer_lib_dir }}/ceilometer/publisher/data/gnocchi_resources.yaml"
     config_overrides: "{{ ceilometer_gnocchi_resources_yaml_overrides }}"
     config_type: "yaml"
