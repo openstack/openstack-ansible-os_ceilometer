@@ -310,14 +310,6 @@ magnum_ceilometer_enabled: "{{ (groups['magnum_all'] is defined) and (groups['ma
 # Defaults to True if the service is deployed.
 ceilometer_gnocchi_enabled: "{{ groups['gnocchi_all'] is defined and groups['gnocchi_all'] | length > 0 }}"
 
-# TODO (andymccr): Remove in Queen release (along with config template overrides)
-# Sampling interval for ceilometer-polling services
-ceilometer_sample_interval: 600
-ceilometer_meter_sample_interval: "{{ ceilometer_sample_interval }}"
-ceilometer_cpu_source_sample_interval: "{{ ceilometer_sample_interval }}"
-ceilometer_disk_source_sample_interval: "{{ ceilometer_sample_interval }}"
-ceilometer_network_source_sample_interval: "{{ ceilometer_sample_interval }}"
-
 ## Keystone authentication middleware
 ceilometer_keystone_auth_plugin: "{{ ceilometer_keystone_auth_type }}"
 ceilometer_keystone_auth_type: password
