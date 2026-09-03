@@ -316,7 +316,7 @@ ceilometer_keystone_auth_type: password
 
 # Common pip packages
 ceilometer_pip_packages:
-  - "git+{{ ceilometer_git_repo }}@{{ ceilometer_git_install_branch }}#egg=ceilometer"
+  - "ceilometer@git+{{ ceilometer_git_repo }}@{{ ceilometer_git_install_branch }}"
   - ceilometermiddleware
   - cryptography
   - gnocchiclient
