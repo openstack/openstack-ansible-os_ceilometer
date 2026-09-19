@@ -15,19 +15,19 @@
 
 # These vars find a file on the deployment node, if it exists - otherwise the result is empty.
 ceilometer_data_meters_user_content: >-
-  "{{ lookup('file', ceilometer_data_meters_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_data_meters_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_event_definitions_user_content: >-
-  "{{ lookup('file', ceilometer_event_definitions_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_event_definitions_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_event_pipeline_user_content: >-
-  "{{ lookup('file', ceilometer_event_pipeline_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_event_pipeline_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_gnocchi_resources_user_content: >-
-  "{{ lookup('file', ceilometer_gnocchi_resources_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_gnocchi_resources_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_osprofiler_event_definitions_user_content: >-
-  "{{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_osprofiler_event_definitions_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_polling_user_content: >-
-  "{{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_polling_default_file_path, errors='ignore') | default('', true) }}
 ceilometer_pipeline_user_content: >-
-  "{{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') | default('', true) }}"
+  {{ lookup('file', ceilometer_pipeline_default_file_path, errors='ignore') | default('', true) }}
 
 _ceilometer_oslomsg_rpc_vhost_conf: >-
   {{
